@@ -60,13 +60,26 @@ public class FordCarDetailsService {
 		
 		return vehicles;
 	}
+	
+	// The performance of this method will be slow as we are retrieving all the records and then filtering
 	public List<VehicleModel> findVehicleByFeature(String exterior, String interior) {
-		System.out.println("vehicleFeatures*****************exterior  "+exterior);
-		System.out.println("vehicleFeatures*****************interior  "+interior);
-		List<VehicleFeature> vehicleFeatures=vehicelFeatureRepository.findByExteriorLikeAndInteriorLike(exterior, interior);
-		System.out.println("vehicleFeatures*****************"+vehicleFeatures);
-		List<Vehicle> vehicleEntities =vehicleFeatures.stream().map(v->v.getVehicle()).distinct().collect(Collectors.toList());
-		List<VehicleModel> vehicles =ConvertionUtil.entitiesToModels(vehicleEntities);
+		
+		
+		/*
+		 * List<VehicleFeature>
+		 * vehicleFeatures=vehicelFeatureRepository.findByExteriorLikeAndInteriorLike(
+		 * exterior, interior);
+		 * System.out.println("vehicleFeatures*****************"+vehicleFeatures);
+		 * List<Vehicle> vehicleEntities
+		 * =vehicleFeatures.stream().map(v->v.getVehicle()).distinct().collect(
+		 * Collectors.toList()); List<VehicleModel> vehicles
+		 * =ConvertionUtil.entitiesToModels(vehicleEntities);
+		 */
+		List<Vehicle> vehicleEntities=vehicleRepository.findAll();
+	
+		List<Vehicle> filteredVehicleEntities=vehicleEntities.stream().filter(v->v.getVehicleFeature().getExterior().contains(exterior)).filter(v->v.getVehicleFeature().getInterior().contains(interior)).collect(Collectors.toList());
+		
+		List<VehicleModel> vehicles =ConvertionUtil.entitiesToModels(filteredVehicleEntities);
 		
 		return vehicles;
 	}

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ford.fordcardetails.entity.Vehicle;
+import com.ford.fordcardetails.exception.InvalidFeaturesException;
 import com.ford.fordcardetails.model.VehicleModel;
 import com.ford.fordcardetails.repository.VehicleRepository;
 import com.ford.fordcardetails.service.FordCarDetailsService;
@@ -46,7 +47,7 @@ public class FordCarDetailsController {
 		
 		VehicleModel vehicle = fordCarDetailsService.createVehicle(theVehicle);
 		int vehicleid=vehicle.getVehicleid();
-		response.setMessage(vehicleid+" subitted successfully into the databae");
+		response.setMessage(vehicleid+" submitted successfully into the database");
 		response.setStatus( HttpStatus.OK.name());
 		response.setStatuscode(HttpStatus.OK.toString());
 		
@@ -91,7 +92,9 @@ public class FordCarDetailsController {
 	 
 	  
 	  @GetMapping("/getVehicleByFeatures/{exterior}/{interior}")
-	  public ResponseEntity<List<VehicleModel>> findVehicleByFeature(@PathVariable String exterior, @PathVariable String interior) {
+	  public ResponseEntity<List<VehicleModel>> findVehicleByFeature(@PathVariable String exterior, @PathVariable String interior) throws InvalidFeaturesException {
+		  if(exterior.length()<3||interior.length()<3)
+			  throw new InvalidFeaturesException("Exterior and Interior input Length should be more than 3 Charatcers");
 		 
 		  List<VehicleModel> vehicles = fordCarDetailsService.findVehicleByFeature(exterior, interior);
 	  
