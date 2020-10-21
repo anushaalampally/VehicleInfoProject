@@ -20,9 +20,9 @@ public class VehicleDetails {
 	
 	private String model;
 	
-	private int modelyear;
+	private int modelYear;
 	
-	private String bodystyle;
+	private String bodyStyle;
 	
 	private String engine;
 	
@@ -32,7 +32,7 @@ public class VehicleDetails {
 	
 	private int MPG;
 	
-	private VehicleFeatureModel vechileFeature;
+	private VehicleFeatureModel vehicleFeature;
 	
 	private List<VehiclePrice> vehiclePrice;
 	

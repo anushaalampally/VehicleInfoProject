@@ -46,7 +46,7 @@ public class FordCarDetailsController {
 		
 		
 		VehicleModel vehicle = fordCarDetailsService.createVehicle(theVehicle);
-		int vehicleid=vehicle.getVehicleid();
+		int vehicleid=vehicle.getVehicleId();
 		response.setMessage(vehicleid+" submitted successfully into the database");
 		response.setStatus( HttpStatus.OK.name());
 		response.setStatuscode(HttpStatus.OK.toString());

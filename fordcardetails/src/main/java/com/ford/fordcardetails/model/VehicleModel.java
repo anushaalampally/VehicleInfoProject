@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class VehicleModel {
-	private int vehicleid;
+	private int vehicleId;
 	private VehicleDetails vehicleDetails;
 
 }

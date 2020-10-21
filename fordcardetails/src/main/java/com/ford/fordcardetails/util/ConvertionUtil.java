@@ -16,27 +16,20 @@ import com.ford.fordcardetails.model.VehicleModel;
 public class ConvertionUtil {
 	
 	
-	public static List<VehicleModel> entitiesToModels(List<Vehicle> vehicleEnteties){
-		List<VehicleModel>  vehicles=new ArrayList<>();
-		for(Vehicle v:vehicleEnteties) {
-		VehicleModel vehicle=	entityToModel(v);
-		vehicles.add(vehicle);
-		}
-		return vehicles;
-		
-	}
+	
 	
 	public static VehicleModel entityToModel(Vehicle vehicleEntity) {
 		VehicleModel vehicle=null;
 		if(vehicleEntity!=null) {
 			vehicle=new VehicleModel();
-			vehicle.setVehicleid(vehicleEntity.getVehicleid());
+			
+			vehicle.setVehicleId(vehicleEntity.getVehicleid());
 			VehicleDetails vehicleDetails=new VehicleDetails();
 			vehicle.setVehicleDetails(vehicleDetails);
-			vehicleDetails.setBodystyle(vehicleEntity.getBodystyle());
+			vehicleDetails.setBodyStyle(vehicleEntity.getBodystyle());
 			vehicleDetails.setMake(vehicleEntity.getMake());
 			vehicleDetails.setModel(vehicleEntity.getModel());
-			vehicleDetails.setModelyear(vehicleEntity.getModelyear());
+			vehicleDetails.setModelYear(vehicleEntity.getModelyear());
 			vehicleDetails.setColor(vehicleEntity.getColor());
 			vehicleDetails.setDrivetype(vehicleEntity.getDrivetype());
 			vehicleDetails.setEngine(vehicleEntity.getEngine());
@@ -45,7 +38,7 @@ public class ConvertionUtil {
 			VehicleFeatureModel vehicleFeatures=new VehicleFeatureModel();
 			vehicleFeatures.setExterior(Arrays.asList(vehicleEntity.getVehicleFeature().getExterior().split(",")));
 			vehicleFeatures.setInterior(Arrays.asList(vehicleEntity.getVehicleFeature().getInterior().split(",")));
-			vehicleDetails.setVechileFeature(vehicleFeatures);
+			vehicleDetails.setVehicleFeature(vehicleFeatures);
 			
 		}
 		
@@ -57,18 +50,18 @@ public class ConvertionUtil {
 		Vehicle vehicle=null;
 		if(vehicleModel!=null) {
 			vehicle=new Vehicle();
-			vehicle.setVehicleid(vehicleModel.getVehicleid());
+			vehicle.setVehicleid(vehicleModel.getVehicleId());
 			if(vehicleModel.getVehicleDetails()!=null) {
 				VehicleDetails vehicleDetails=vehicleModel.getVehicleDetails();
 				
 				vehicle.setMake(vehicleDetails.getMake());
 				vehicle.setModel(vehicleDetails.getModel());
-				vehicle.setModelyear(vehicleDetails.getModelyear());
+				vehicle.setModelyear(vehicleDetails.getModelYear());
 				vehicle.setDrivetype(vehicleDetails.getDrivetype());
 				vehicle.setMPG(vehicleDetails.getMPG());
 				vehicle.setEngine(vehicleDetails.getEngine());
 				vehicle.setColor(vehicleDetails.getColor());
-				vehicle.setBodystyle(vehicleDetails.getBodystyle());
+				vehicle.setBodystyle(vehicleDetails.getBodyStyle());
 				vehicle.setVehiclePrice(vehicleDetails.getVehiclePrice());
 				for(VehiclePrice vp:vehicleDetails.getVehiclePrice()) {
 					vp.setVehicle(vehicle);
@@ -76,9 +69,10 @@ public class ConvertionUtil {
 				}
 				
 				
-				if(vehicleDetails.getVechileFeature()!=null) {
-					VehicleFeatureModel vehicleFeatureModel=vehicleDetails.getVechileFeature();
+				if(vehicleDetails.getVehicleFeature()!=null) {
+					VehicleFeatureModel vehicleFeatureModel=vehicleDetails.getVehicleFeature();
 					VehicleFeature vehicleFeature=new VehicleFeature();
+					
 					vehicleFeature.setExterior(String.join(",", vehicleFeatureModel.getExterior()));
 					vehicleFeature.setInterior(String.join(",", vehicleFeatureModel.getInterior()));
 					vehicleFeature.setVehicle(vehicle);
@@ -98,5 +92,15 @@ public class ConvertionUtil {
 		
 		
 		return vehicle;
+	}
+	
+	public static List<VehicleModel> entitiesToModels(List<Vehicle> vehicleEnteties){
+		List<VehicleModel>  vehicles=new ArrayList<>();
+		for(Vehicle v:vehicleEnteties) {
+		VehicleModel vehicle=	entityToModel(v);
+		vehicles.add(vehicle);
+		}
+		return vehicles;
+		
 	}
 }
