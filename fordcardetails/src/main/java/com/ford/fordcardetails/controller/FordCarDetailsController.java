@@ -75,11 +75,11 @@ public class FordCarDetailsController {
 	
 	  @GetMapping("/getVehicleprice/{from}/{to}")
 	  public ResponseEntity<List<VehicleModel>> findVehiclePrice(@PathVariable String from, @PathVariable String to) throws Exception {
-		  int fromInt=0;
-		  int toInt=0;
+		  Double fromInt=0.0;
+		  Double toInt=0.0;
 		  try {
-		   fromInt=Integer.valueOf(from.replaceAll(",", ""));
-		   toInt=Integer.valueOf(to.replaceAll(",", ""));
+		   fromInt=Double.valueOf(from.replaceAll(",", ""));
+		   toInt=Double.valueOf(to.replaceAll(",", ""));
 		  }catch(Exception e) {
 			  throw new Exception("Enter Valid number for price values",e);
 		  }

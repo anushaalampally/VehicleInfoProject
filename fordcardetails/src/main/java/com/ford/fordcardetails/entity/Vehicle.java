@@ -52,7 +52,7 @@ public class Vehicle {
 	@Column
 	private String color;
 	@Column
-	private int MPG;
+	private String MPG;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="vehicle",cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH})

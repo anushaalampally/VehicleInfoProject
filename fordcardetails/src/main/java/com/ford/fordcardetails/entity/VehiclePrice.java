@@ -14,11 +14,12 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Component
+
 @Getter
 @Setter
 @Entity
@@ -31,11 +32,11 @@ public class VehiclePrice {
 	private int vehiclepriceid;
 	 
 	@Column
-	private String MSRP;
+	private double MSRP;
 	@Column
-	private String Savings;
+	private double Savings;
 	@Column
-	private String	finalprice;
+	private double	finalPrice;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH})

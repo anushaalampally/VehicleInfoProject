@@ -13,6 +13,7 @@ import com.ford.fordcardetails.entity.VehiclePrice;
 import com.ford.fordcardetails.model.VehicleDetails;
 import com.ford.fordcardetails.model.VehicleFeatureModel;
 import com.ford.fordcardetails.model.VehicleModel;
+import com.ford.fordcardetails.model.VehiclePriceModel;
 public class ConvertionUtil {
 	
 	
@@ -33,8 +34,19 @@ public class ConvertionUtil {
 			vehicleDetails.setColor(vehicleEntity.getColor());
 			vehicleDetails.setDrivetype(vehicleEntity.getDrivetype());
 			vehicleDetails.setEngine(vehicleEntity.getEngine());
-			vehicleDetails.setMPG(vehicleEntity.getMPG());
-			vehicleDetails.setVehiclePrice(vehicleEntity.getVehiclePrice());
+			vehicleDetails.setMpg(vehicleEntity.getMPG());
+			List<VehiclePriceModel> vehiclePrices=new ArrayList<>();
+			if(vehicleEntity.getVehiclePrice()!=null) {
+				for(VehiclePrice vp:vehicleEntity.getVehiclePrice()) {
+					VehiclePriceModel vpm=new VehiclePriceModel();
+					vpm.setFinalPrice("$"+vp.getFinalPrice());
+					vpm.setSavings("$"+vp.getSavings());
+					vpm.setMsrp("$"+vp.getMSRP());
+					vehiclePrices.add(vpm);
+				}
+			}
+			
+			vehicleDetails.setVehiclePrice(vehiclePrices);
 			VehicleFeatureModel vehicleFeatures=new VehicleFeatureModel();
 			vehicleFeatures.setExterior(Arrays.asList(vehicleEntity.getVehicleFeature().getExterior().split(",")));
 			vehicleFeatures.setInterior(Arrays.asList(vehicleEntity.getVehicleFeature().getInterior().split(",")));
@@ -58,15 +70,28 @@ public class ConvertionUtil {
 				vehicle.setModel(vehicleDetails.getModel());
 				vehicle.setModelyear(vehicleDetails.getModelYear());
 				vehicle.setDrivetype(vehicleDetails.getDrivetype());
-				vehicle.setMPG(vehicleDetails.getMPG());
+				vehicle.setMPG(vehicleDetails.getMpg());
 				vehicle.setEngine(vehicleDetails.getEngine());
 				vehicle.setColor(vehicleDetails.getColor());
 				vehicle.setBodystyle(vehicleDetails.getBodyStyle());
-				vehicle.setVehiclePrice(vehicleDetails.getVehiclePrice());
-				for(VehiclePrice vp:vehicleDetails.getVehiclePrice()) {
-					vp.setVehicle(vehicle);
+				List<VehiclePrice> vehiclePrices=new ArrayList<>();
+			
+				
+				if(vehicleDetails.getVehiclePrice()!=null) {
+					for(VehiclePriceModel vpm:vehicleDetails.getVehiclePrice()) {
+						VehiclePrice vp=new VehiclePrice();
+						vp.setMSRP(Double.parseDouble(vpm.getMsrp().replaceAll(",", "").replace("$", "")));
+						vp.setSavings(Double.parseDouble(vpm.getSavings().replaceAll(",", "").replace("$", "")));
+						vp.setFinalPrice(Double.parseDouble(vpm.getFinalPrice().replaceAll(",", "").replace("$", "")));
+						vp.setVehicle(vehicle);
+						vehiclePrices.add(vp);
+					}
+					
+					
 					
 				}
+				vehicle.setVehiclePrice(vehiclePrices);
+				
 				
 				
 				if(vehicleDetails.getVehicleFeature()!=null) {

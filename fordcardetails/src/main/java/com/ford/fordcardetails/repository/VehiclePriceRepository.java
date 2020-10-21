@@ -12,6 +12,6 @@ public interface VehiclePriceRepository extends JpaRepository<VehiclePrice, Inte
 	
 	
 	@Query(value = "from VehiclePrice  where finalPrice BETWEEN :from AND :to")
-	List<VehiclePrice> findByFinalPriceBetween(@Param("from")Integer from,@Param("to")Integer to);
+	List<VehiclePrice> findByFinalPriceBetween(@Param("from")Double from,@Param("to")Double to);
 
 }

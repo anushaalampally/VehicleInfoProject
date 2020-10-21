@@ -54,7 +54,7 @@ public class FordCarDetailsService {
 		return vehicles;
 		  
 		  }
-	public List<VehicleModel> findByVehiclePrice(int from, int to) {
+	public List<VehicleModel> findByVehiclePrice(Double from, Double to) {
 		// TODO Auto-generated method stub
 		//vehicleRepository.findByVehiclePrice();
 		List<VehiclePrice> vehiclePrices=vehiclePriceRepository.findByFinalPriceBetween(from, to);

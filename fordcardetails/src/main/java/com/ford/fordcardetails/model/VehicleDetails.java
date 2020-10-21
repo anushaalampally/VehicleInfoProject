@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ford.fordcardetails.entity.VehiclePrice;
 
 import lombok.AllArgsConstructor;
@@ -30,11 +31,12 @@ public class VehicleDetails {
 	
 	private String color;
 	
-	private int MPG;
+	@JsonProperty("MPG")
+	private String mpg;
 	
 	private VehicleFeatureModel vehicleFeature;
 	
-	private List<VehiclePrice> vehiclePrice;
+	private List<VehiclePriceModel> vehiclePrice;
 	
 
 }
